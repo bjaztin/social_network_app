@@ -1,0 +1,39 @@
+/* Status post container */
+
+.post-image{
+    margin-left:50%;
+    padding-top:5%;
+}
+
+#heading_recent_post{
+    margin-left: 2%;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#post-status-text{
+    margin-left: 2%;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Edit profile container */
+
+#edit_profile{
+   height:80%;
+   width:80%;
+}
+
+#edit_profile_pic{
+    width: 150px; 
+    height: 150px;
+}
+
+/* Navigation bar */
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* My invitation page buttons */
+

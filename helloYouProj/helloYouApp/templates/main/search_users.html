@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+
+    <div class="searched">
+
+    {% if searched %}
+    <div class="container text-center">
+            <h1> You searched for {{searched}} </h1>
+            {% for profile in profiles %}
+            <div class="link mt-4">
+            <a href="{% url 'viewProfile' profile.user.username %}" style="text-decoration: none; color:black; font-size: 30px;">{{profile}}</a><br>
+                {% endfor %}
+            </div>
+
+        {% else %}
+
+            <h1 class="text-center mt-4">Hey you forgot to search a user</h1>
+        {% endif %}
+    </div>
+
+</div>
+
+
+{% endblock content %}

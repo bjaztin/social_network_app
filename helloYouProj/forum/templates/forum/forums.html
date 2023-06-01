@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class=" w-full bg-light">
+    <div class="p-10 lg:p-20 text-center">
+        <h1 class="text-3xl lg:text-6xl text-black pt-5">Forums</h1>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        {% for forum in forums %}
+        <div class="card m-5 w-50 d-flex justify-content-center border-0 shadow" style="width: 18rem; border-radius: 25px;">
+            <div class="card-body">
+                <h5 class="card-title">{{forum.name}}</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="{% url 'forum' forum.slug %}">
+                    <button type="submit" class="btn btn-outline-dark" id="post-button" id="edit_profile" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Join</button>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

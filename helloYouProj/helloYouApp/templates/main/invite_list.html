@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<u>
+    {% for invite in all_profiles_to_invite %}
+    
+    <li>{{invite}}</li>
+
+    {% endfor %}
+</u>
+{% endblock content %}
+

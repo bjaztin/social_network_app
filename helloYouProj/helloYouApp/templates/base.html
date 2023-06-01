@@ -1,0 +1,12 @@
+<!-- {% load static %} -->
+{% include "main/header.html" %}
+{% include "main/navBar.html" %}
+
+<div class="content">
+    {% block content %}Did not render content{% endblock %}
+</div>
+
+{% block scripts %}
+{% endblock %}
+
+<script type="text/javascript" src="/helloYouProj/helloYouApp/static/main.js"

@@ -1,0 +1,173 @@
+{% extends 'base.html' %} 
+{% load bootstrap5 %}
+{% load static %}
+{% block content %}
+
+<!-- <div class="w-full">
+  <section class="status-container bg-light">
+    {% if post_added %}
+    <div class="text-success">Post Added!</div>
+    {% endif %}
+     
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-xl-10">
+            <div class="card mb-5 w-90 p-4 border-0" style="border-radius: 25px;">
+
+
+              <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <div class="d-flex flex-row align-items-center mb-4 pt-4">
+                  <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                  <div class="form-outline flex-fill mb-0" id="status_form">
+                    
+                      <div class="status_header d-flex">
+                        <img src={{picture.url}} class="rounded-circle" height="50" loading="lazy"/>
+
+                        <input type="text" id="textbox" class="form-control border-0 bg-light" style="border-radius: 25px;" name="status" placeholder="Share something"/>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="form-group mb-4 pl-5" id="image_file">
+                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image_post">
+                <button type="submit" class="btn btn-outline-dark" id="post-button" id="edit_profile" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Post</button>
+              </div>
+
+              </form>
+            </div>
+        </div>
+        </div>
+
+  </section>
+
+
+<div class="view_post container ">
+
+  <div class="posts">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h6 class="lead fw-normal mb-0" id="heading_post" style="margin-left: 10px">Post</h6>
+    </div>
+
+    {% for post in posts %}
+    <div class="container p-5 bg-white my-5 border0" style="border-radius: 25px;">
+
+      <img src={{post.author.profile_pic.url}} class="rounded-circle" height="40" loading="lazy" />
+      {{post.author.user}} - {{post.created|timesince}}
+      <hr> 
+
+      <div class="row">
+
+        <div class="col-3 p-3">
+
+        <div class="row"> 
+
+          <div class="status">
+            {{post.status}}
+          </div>
+          <div class="post-image">
+            {% if post.image_post %}
+            <img src={{ post.image_post.url }} width="850" height="600" class="rounded mx-auto">
+            {% else %}
+            #
+            {% endif %}
+          </div>
+        </div>
+        </div>
+      </div> 
+    </div> 
+    {% endfor %}
+  </div>
+</div>
+
+</div> -->
+
+<div class="bg-light"> 
+  <div class="row d-flex justify-content-center align-items-center">
+
+      <div class="card-body p-4 text-black ">
+
+        <section class="status-container">
+  
+          <div class="container py-2">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-xl-10">
+            <div class="card mb-2 w-90 p-4 border-0 " style="border-radius: 25px;">
+
+
+              <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="d-flex flex-row align-items-center mb-4 pt-4">
+                  <!-- <i class="fa-light fa-image" style="color: #0c0d0d;"></i> -->
+                    <div class="form-outline flex-fill mb-0" id="status_form">
+
+                      <div class="status_header d-flex ms-1">
+                        <img src={{picture.url}} class="rounded-circle" height="50" loading="lazy"/>
+
+                        <input type="text" id="staus-textbox" class="form-control border-0 ms-2 bg-light" style="border-radius: 25px;" name="status" placeholder="Share something"/>
+                      </div>
+                    </div>
+                  </div>
+
+
+                <div class="form-group" id="image_file">
+                  <input type="file" class="form-control-file mb-4 ms-5 ps-4" id="exampleFormControlFile1" name="image_post">
+                </div>
+
+                <div class="d-md-flex justify-content-md-end px-3">
+                  <button type="submit" class="btn btn-outline-dark px-3" id="post-button" id="edit_profile" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Post</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          </div>
+          </div>
+        </section>
+      </div>
+
+
+      <div class="view_post container w-75">
+
+     
+
+      <div class="recent_posts">
+        <div class="d-flex justify-content-between align-items-center">
+          <h6 class="lead fw-normal" id="heading_recent_post">Recent post</h6>
+        </div>
+
+        {% if post_added %}
+        <div class="text-success" id="post-status-text">Post Added!</div>
+        {% endif %}
+
+        {% for post in posts %}
+        <div class="container p-5 my-5 bg-white border0" style="border-radius: 25px;">
+
+          <img src={{post.author.profile_pic.url}} class="rounded-circle" height="40" loading="lazy" />
+          {{post.author.user}} - {{post.created|timesince}}
+          <hr> 
+
+          <div class="row">
+
+            <div class="col-3 p-3">
+
+              <div class="row"> 
+
+                <div class="status">
+                  {{post.status}}
+                </div>
+                <div class="post-image">
+                  {% if post.image_post %}
+                  <img src={{ post.image_post.url }} width="280%" height="100%" class="rounded m-12 pl-24">
+                  {% else %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div> 
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+         
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="all_profiles container w-100">
+
+    <div class="posts">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="lead fw-normal mb-0" id="heading_post" style="margin-left: 10px">My Friends</h6>
+        </div>
+    </div>
+
+    {% if is_empty %}
+    <div class="container mt-5">
+        <h1>There are no profiles to interact</h1>
+    </div>
+    {% endif %}
+
+    {% for obj in object_list %}
+    <div class="container p-5 bg-light my-5 border-0" style="border-radius: 25px;">
+
+        <div class="row">
+            <div class="col-2">
+                <img src={{obj.profile_pic.url}} class="rounded-circle" height="180" loading="lazy" />
+            </div>
+
+            <div class="profile_user col-3">
+            {{obj.user}}
+            <br>
+            <br>
+            {{obj.about}}
+            <br>
+            <br>
+
+            <div class="d-flex">
+                <div class="p-1">
+                    <a href="{{obj.get_url}}"><button type="submit" class="btn btn-outline-dark" id="profile-button" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Profile</button></a>
+                </div>
+
+                <div class="p-1">
+
+                    {% if obj.user not in rel_receiver and obj.user not in rel_sender %}
+                    <form action="{% url 'send_invite' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="profile_pk" value={{obj.pk}}>
+                    <button type="submit" class="btn btn-outline-dark" id="profile-button" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Add friend</button>
+                    </form>
+                    {% endif %}
+
+                </div>
+
+                <div class="p-1">
+                    {% if obj.user in rel_receiver and request.user not in obj.friends.all %}
+                    <button type="submit" class="btn btn-outline-dark" id="profile-button" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Waiting</button>
+                    {% endif %}
+                </div>
+
+                <div class="p-1">
+                    {% if request.user in obj.friends.all %}
+                    <form action="{% url 'unfriend' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value={{obj.pk}}>
+                        <button type="submit" class="btn btn-outline-dark" id="profile-button" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Unfriended</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+         </div>
+        </div>
+    </div>  
+</div> 
+{% endfor %}
+
+{% endblock content %}

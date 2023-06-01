@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="bg-light"> 
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="card mt-4 p-0 border-0" style="width: 90%;">
+            <div class="rounded-top text-white d-flex flex-row" style="background-color: #99a28f; height:350px;">
+                <div class="ms-4 d-flex flex-column" style="width: 220px; margin-top: 240px;">
+                    <img src={{profile.profile_pic.url}}
+                    alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                    style="width:200px; height:200px; border-radius:50%; z-index: 1">
+                </div>
+            </div>
+
+            <div class="p-4 text-black d-flex" style="margin-top: 10px; margin-left: 200px; width:100%">
+                <div class="ms-3">
+                    <h5>{{profile.first_name}} {{profile.last_name}}</h5>
+                    <p class="font-italic">{{profile.about}}</p>
+                </div>
+
+                <div class="d-flex justify-content-end text-center py-1 " style="margin-left: 60%">
+                    <div>
+                        <p class="mb-1 h5">{{profile.show_posts_number}}</p>
+                        <p class="small text-muted mb-0">Posts</p>
+                    </div>
+                    <div class="px-3">
+                        <p class="mb-1 h5">{{profile.show_friends_number}}</p>
+                        <p class="small text-muted mb-0">Friends</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="view_post container w-75">
+
+                <div class="recent_posts">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="lead fw-normal mb-0" id="heading_recent_post" style="margin-left: 100px; margin-top:30px;">Recent post</h6>
+                    </div>
+                
+                {% for post in all_posts %}
+                <div class="container p-5 my-5 bg-white  border0" style="border-radius: 25px;">
+                
+                    <img src={{post.author.profile_pic.url}} class="rounded-circle" height="40" loading="lazy" />
+                    {{post.author.user}} - {{post.created|timesince}}
+                    <hr> 
+                    
+                    <div class="row">
+
+                        <div class="col-3 p-3">
+                            
+                            <div class="row"> 
+                                        
+                            <div class="status">
+                                {{post.status}}
+                            </div>
+                            <div class="post-image">
+                                {% if post.image_post %}
+                                <img src={{ post.image_post.url }} width="850" height="650" class="rounded mx-auto">
+                                {% else %}
+                                {% endif %}
+                            </div>    
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update your profile</h5>
+      </div>
+
+      <div class="modal-profile_pic d-flex justify-content-center align-items-center mt-4">
+        <img src={{userProfile.profile_pic.url}} id="edit_profile_pic">
+      </div>
+
+      <div class="modal-body">
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row mb-3 mt-3">
+            <label id="firstname" class="col-sm col-form-label">First name</label>
+            <div class="col-sm-8">
+              <p>{{form.first_name}}</p>
+            </div>
+          </div>
+
+          <div class="row mb-3 mt-3">
+            <label id="lastname" class="col-sm col-form-label">Last name</label>
+            <div class="col-sm-8">
+              <p>{{form.last_name}}</p>
+            </div>
+          </div>
+
+          <div class="row mb-3 mt-3">
+            <label id="about" class="col-sm col-form-label">About</label>
+            <div class="col-sm-8">
+              <p id="about_text">{{form.about}}</p>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <p>{{form.profile_pic}}</p>
+          </div>
+
+      </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+          </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-light"> 
+  <div class="row d-flex justify-content-center align-items-center">
+
+      <div class="card mt-4 p-0 border-0" style="width: 90%;">
+      <div class="rounded-top text-white d-flex flex-row" style="background-color: #99a28f; height:350px;">
+
+        <div class="ms-5 d-flex flex-column" style="width: 220px; margin-top: 240px;">
+          <img src={{userProfile.profile_pic.url}}
+          alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+          style="width:200px; height:200px; border-radius:50%; z-index: 1">
+        </div>
+      </div>
+
+      <div class="p-4 text-black d-flex" style="margin-top: 10px; margin-left: 200px">
+        <div class="ms-5">
+          <h5>{{userProfile.first_name}} {{userProfile.last_name}}</h5>
+          <p class="font-italic">{{userProfile.about}}</p>
+        </div>
+
+        <div class="d-md-flex justify-content-md-end text-center p-3 " style="margin-left: 45%">
+
+          <!-- Button trigger modal -->
+        
+          
+            <button type="button" class="btn btn-outline-dark" id="edit_profile" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Edit profile
+            </button>
+  
+            <div class="ps-4">
+              <p class="mb-1 h5">{{userProfile.show_posts_number}}</p>
+              <p class="small text-muted">Posts</p>
+            </div>
+
+            <div class="ps-4">
+              <p class="mb-1 h5">{{userProfile.show_friends_number}}</p>
+              <p class="small text-muted">Friends</p>
+            </div>
+     
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div> 
+
+<div class="bg-light"> 
+  <div class="row d-flex justify-content-center align-items-center">
+
+      <div class="card-body p-4 text-black ">
+
+        <section class="status-container">
+  
+          <div class="container py-2">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-xl-10">
+            <div class="card mb-2 w-90 p-4 border-0 " style="border-radius: 25px;">
+
+
+              <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="d-flex flex-row align-items-center mb-4 pt-4">
+                  <!-- <i class="fa-light fa-image" style="color: #0c0d0d;"></i> -->
+                    <div class="form-outline flex-fill mb-0" id="status_form">
+
+                      <div class="status_header d-flex ms-1">
+                        <img src={{picture.url}} class="rounded-circle" height="50" loading="lazy"/>
+
+                        <input type="text" id="staus-textbox" class="form-control border-0 ms-2 bg-light" style="border-radius: 25px;" name="status" placeholder="Share something"/>
+                      </div>
+                    </div>
+                  </div>
+
+
+                <div class="form-group" id="image_file">
+                  <input type="file" class="form-control-file mb-4 ms-5 ps-4" id="exampleFormControlFile1" name="image_post">
+                </div>
+
+                <div class="d-md-flex justify-content-md-end px-3">
+                  <button type="submit" class="btn btn-outline-dark px-3" id="post-button" id="edit_profile" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Post</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          </div>
+          </div>
+        </section>
+      </div>
+
+
+      <div class="view_post container w-75">
+        
+      <div class="recent_posts">
+        <div class="d-flex justify-content-between align-items-center">
+          <h6 class="lead fw-normal" id="heading_recent_post">Recent post</h6>
+        </div>
+
+        {% if confirm %}
+        <div class="text-success" style="margin-left: 150px">Your profile has been successfully updated!</div>
+        {% endif %}
+
+        {% if post_added %}
+        <div class="text-success" id="post-status-text">Post Added!</div>
+        {% endif %}
+
+        {% for post in all_posts %}
+        <div class="container p-5 my-5 bg-white border0" style="border-radius: 25px;">
+
+          <img src={{post.author.profile_pic.url}} class="rounded-circle" height="40" loading="lazy" />
+          {{post.author.user}} - {{post.created|timesince}}
+          <hr> 
+
+          <div class="row">
+
+            <div class="col-3 p-3">
+
+              <div class="row"> 
+
+                <div class="status">
+                  {{post.status}}
+                </div>
+                <div class="post-image">
+                  {% if post.image_post %}
+                  <img src={{ post.image_post.url }} width="280%" height="100%" class="rounded m-12 pl-24">
+                  {% else %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div> 
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+
+{% endblock scripts %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="view_invites container w-100">
+
+    <div class="posts">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="lead fw-normal mb-0" id="heading_post" style="margin-left: 10px">My Invites</h6>
+        </div>
+    </div>
+
+    {% if is_empty %}
+    <div class="container mt-5">
+        <h1>You dont have invitations</h1>
+    </div>
+    {% endif %}
+
+    {% for obj in invitation %}
+    <div class="container p-5 bg-light my-5 border-0" style="border-radius: 25px;">
+
+        <div class="row d-md-flex" id="details_container">
+            <div class="col-2">
+                <img src={{obj.profile_pic.url}} class="rounded-circle" height="180" loading="lazy" />
+            </div>
+
+            <div class="profile_user col-3 p-4">
+            {{obj.user}}
+            <br>
+            <br>
+            {{obj.about}}
+            <br>
+            <br>
+
+            <div class="d-grid gap-2 d-md-flex" id="invite-status-buttons">
+                <div class="p-1">
+                    <a href="{{obj.get_url}}"><button type="submit" class="btn btn-outline-dark" id="profile-button" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Profile</button></a>
+                </div>
+
+                <div class="p-1">
+
+                    <form action="{% url 'accept_invite' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value={{obj.pk}}>
+                        <button type="submit" class="btn btn-outline-dark" id="confirm-button" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Confirm</button>
+                    </form>
+
+                </div>
+
+                <div class="p-1">
+
+                    <form action="{% url 'reject_invite' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value={{obj.pk}}>
+
+                        <button type="submit" class="btn btn-outline-dark" id="delete-button" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div> 
+</div> 
+
+{% endfor %}
+   
+{% endblock content %}
